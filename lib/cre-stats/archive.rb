@@ -1,16 +1,25 @@
 module CRE
   module Stats
+    #
+    # An archive is a repository of episodes
+    #
     class Archive
-      def initialize(nodes)
-        @episodes = {}
-        nodes.each do |tr|
-          e = Mappers::EpisodeMapper.load(tr)
-          @episodes[e.uri.path] = e
+      class << self
+        def load(url = 'http://cre.fm/archiv')
+          Mappers::ArchiveMapper.load(Nokogiri::HTML(open(url).read))
         end
       end
 
-      def episode(nr)
-        @episodes[nr].dup
+      def initialize
+        @episodes = {}
+      end
+
+      def add_episode(e)
+        @episodes[e.uri.path] = e
+      end
+
+      def episode(path)
+        @episodes[path].dup
       end
 
       def episodes
