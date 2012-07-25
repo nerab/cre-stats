@@ -5,11 +5,12 @@ class TestArchive < MiniTest::Unit::TestCase
 
   def setup
     doc = Nokogiri::HTML(fixture('all.html'))
-    @archive = Archive.new(doc.xpath('/html/body/tr'))
+    trs = doc.xpath("//tr[@class='podcast_archive_element']")
+    @archive = Archive.new(trs)
   end
 
   def test_empty
     refute_nil(@archive)
-    assert_equal(193, @archive.episodes.size)
+    assert_equal(194, @archive.episodes.size)
   end
 end
