@@ -30,4 +30,32 @@ class TestArchiveLoad < MiniTest::Unit::TestCase
       end
     end
   end
+
+  def test_find_by_guest_maha
+    maha = @archive.find_by_guest('Martin Haase')
+    assert_equal(5, maha.size)
+    assert(maha.none?{|e| e.title == 'CRE042 OpenMoko'})
+    [
+      'CRE041 Sprachen',
+      #'CRE043 Wikipedia für Fortgeschrittene',
+      #'CRE081 Neusprech im Schnüffelstaat',
+      #'CRE093 Qualitätsmanagement in der Wikipedia',
+      'CRE190 Rhetorik',
+    ].each do |h5_title|
+      assert(maha.any?{|e| e.title == h5_title})
+    end
+  end
+
+  def test_find_by_guest_ck
+    ck = @archive.find_by_guest('Constanze Kurz')
+    assert_equal(3, ck.size)
+    assert(ck.none?{|e| e.title == 'CRE057 BitTorrent'})
+    [
+      'CRE047 Der Elektronische Reisepass',
+      'CRE050 Der Wahlstift',
+      'CRE058 24C3 Preview',
+    ].each do |ck_title|
+      assert(ck.any?{|e| e.title == ck_title})
+    end
+  end
 end

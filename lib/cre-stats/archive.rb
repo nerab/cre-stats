@@ -12,14 +12,20 @@ module CRE
 
       def initialize
         @episodes_by_path = {}
+        @episodes_by_guest = Hash.new{|hash, key| hash[key] = []}
       end
 
       def add_episode(e)
         @episodes_by_path[e.uri.path] = e
+        e.guests.each{|guest| @episodes_by_guest[guest] << e}
       end
 
       def find(id)
         @episodes_by_path["/cre#{"%03d" % id}"]
+      end
+
+      def find_by_guest(guest)
+        @episodes_by_guest[guest]
       end
 
       def all
