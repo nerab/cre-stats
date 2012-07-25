@@ -4,6 +4,10 @@ Provides simple statistics about [CRE](http://cre.fm/) and its guests.
 
 [![Build Status](https://secure.travis-ci.org/nerab/cre-stats.png?branch=master)](http://travis-ci.org/nerab/cre-stats)
 
+## Examples
+
+![Graph](/nerab/cre-stats/raw/master/examples/episodes_by_year.png)
+
 ## Installation
 
 Add this line to your application's Gemfile:
