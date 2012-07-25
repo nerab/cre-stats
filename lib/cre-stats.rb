@@ -5,6 +5,9 @@ require 'active_support/inflector'
 require 'cre-stats/version'
 require 'cre-stats/episode'
 
+require 'cre-stats/mappers/episode_mapper'
+
+
 module CRE
   module Stats
     # Your code goes here...

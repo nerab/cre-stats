@@ -3,27 +3,40 @@ module CRE
     class Episode
       include ActiveModel::Validations
 
-      attr_accessor :title, :uri, :released_at, :subtitle, :guests, :thumbnail
-      attr_reader   :duration
+      attr_accessor :title, :uri, :released_at, :subtitle, :thumbnail, :duration
+      attr_reader   :guests
 
-      validates :title, :uri, :released_at, :duration, :subtitle, :guests, :thumbnail,
+      validates :title, :uri, :released_at, :duration, :subtitle, :thumbnail,
                 :presence => true
 
-      validates :duration, :numericality => { :only_integer => true, :greater_than => 0}
+      validates :duration, :numericality => {:only_integer => true, :greater_than => 0}
+
+      validates :guests, :with => :validates_count
+      validates :uri, :thumbnail, :with => :validates_uri
 
       def initialize
         @guests = []
       end
 
-      def duration=(str)
-        hms = DURATION_REGEXP.match(str)
-        raise "The duration #{str} does not match the expected format #{DURATION_REGEXP}" if hms.nil?
-        @duration = hms.captures[0].to_i * 60 * 60 + hms.captures[1].to_i * 60 + hms.captures[2].to_i
+      def add_guest(guest)
+        return if guest.nil?
+        @guests << guest
+        @guests.uniq!
       end
 
       private
 
-      DURATION_REGEXP = /([0-9]{2}):([0-9]{2}):([0-9]{2})/
+      def validates_count(attrib)
+        errors[attrib] << "Must have at least one #{attrib.to_s.singularize}" if send(attrib).empty?
+      end
+
+      def validates_uri(attrib)
+        begin
+          URI(send(attrib))
+        rescue
+          errors[attrib] << "Must be a URL. #{$!.message}"
+        end
+      end
     end
   end
 end

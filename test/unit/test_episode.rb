@@ -57,8 +57,9 @@ class TestEpisode < MiniTest::Unit::TestCase
   end
 
   def test_duration
-    @episode.duration = '03:13:52'
-    assert_equal(3 * 60 * 60 + 13 * 60 + 52, @episode.duration)
+    dur = '03:13:52'
+    @episode.duration = dur
+    assert_equal(dur, @episode.duration)
     assert(@episode.invalid?)
   end
 end
