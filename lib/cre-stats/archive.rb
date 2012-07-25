@@ -11,19 +11,19 @@ module CRE
       end
 
       def initialize
-        @episodes = {}
+        @episodes_by_path = {}
       end
 
       def add_episode(e)
-        @episodes[e.uri.path] = e
+        @episodes_by_path[e.uri.path] = e
       end
 
-      def episode(path)
-        @episodes[path].dup
+      def find(id)
+        @episodes_by_path["/cre#{"%03d" % id}"]
       end
 
-      def episodes
-        @episodes.values.dup
+      def all
+        @episodes_by_path.values.dup
       end
     end
   end

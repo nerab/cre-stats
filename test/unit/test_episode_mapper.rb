@@ -1,6 +1,7 @@
 require 'helper'
 
 class TestEpisodeMapper < MiniTest::Unit::TestCase
+  include CRE::Stats
   include CRE::Stats::Mappers
 
   def setup
@@ -10,5 +11,10 @@ class TestEpisodeMapper < MiniTest::Unit::TestCase
 
   def test_load_success
     refute_nil(@episode)
+  end
+
+  def test_guest_count
+    assert_equal(Episode, @episode.class)
+    assert_equal(1, @episode.guests.size)
   end
 end

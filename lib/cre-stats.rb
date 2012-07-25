@@ -8,8 +8,10 @@ require 'cre-stats/version'
 require 'cre-stats/episode'
 require 'cre-stats/archive'
 
-require 'cre-stats/mappers/episode_mapper'
 require 'cre-stats/mappers/archive_mapper'
+require 'cre-stats/mappers/episode_mapper'
+require 'cre-stats/mappers/guest_mapper'
+require 'cre-stats/mappers/duration_mapper'
 
 
 module CRE

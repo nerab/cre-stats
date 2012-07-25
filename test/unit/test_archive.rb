@@ -9,6 +9,6 @@ class TestArchive < MiniTest::Unit::TestCase
 
   def test_empty
     refute_nil(@archive)
-    assert_equal(0, @archive.episodes.size)
+    assert_equal(0, @archive.all.size)
   end
 end

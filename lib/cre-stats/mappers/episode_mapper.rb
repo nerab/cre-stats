@@ -28,20 +28,10 @@ module CRE
               e.title  = title_block.xpath('a/strong').first.text
               e.subtitle = title_block.xpath('em').first.text
               e.uri = URI(title_block.xpath('a/@href').first.value)
-              e.guests << title_block.xpath('strong').first.next.text.strip
-              e.duration = parse_duration(doc.xpath('td[@class="duration"]').first.text)
+              GuestMapper.load(title_block.xpath('strong').first.next.text.strip).each{|guest| e.add_guest(guest)}
+              e.duration = DurationMapper.load(doc.xpath('td[@class="duration"]').first.text)
             end
           end
-
-          private
-
-          def parse_duration(str)
-            hms = DURATION_REGEXP.match(str)
-            raise "The duration #{str} does not match the expected format #{DURATION_REGEXP}" if hms.nil?
-            hms.captures[0].to_i * 60 * 60 + hms.captures[1].to_i * 60 + hms.captures[2].to_i
-          end
-
-          DURATION_REGEXP = /([0-9]{2}):([0-9]{2}):([0-9]{2})/
         end
       end
     end
