@@ -1,6 +1,6 @@
-# Cre::Stats
+# CRE Stats
 
-TODO: Write a gem description
+Provides simple statistics about [CRE](http://cre.fm/) and its guests.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Once the gem is installed, the `cre-stats` script will be in the user's path. Call it and it will print some simple statistics for [CRE](http://cre.fm/).
 
 ## Contributing
 
