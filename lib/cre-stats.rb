@@ -1,10 +1,11 @@
 require 'uri'
 require 'active_model'
 require 'active_support/inflector'
-require 'xml'
+require 'nokogiri'
 
 require 'cre-stats/version'
 require 'cre-stats/episode'
+require 'cre-stats/archive'
 
 require 'cre-stats/mappers/episode_mapper'
 

@@ -4,8 +4,8 @@ class TestEpisodeMapper < MiniTest::Unit::TestCase
   include CRE::Stats::Mappers
 
   def setup
-    doc = XML::HTMLParser.string(fixture('cre193.html')).parse
-    @episode = EpisodeMapper.load(doc.find_first('/html/body/tr'))
+    doc = Nokogiri::HTML(fixture('cre193.html'))
+    @episode = EpisodeMapper.load(doc.xpath('/html/body/tr').first)
   end
 
   def test_load_success

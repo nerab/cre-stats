@@ -22,14 +22,14 @@ module CRE
         class << self
           def load(doc)
             Episode.new.tap do |e|
-              e.thumbnail = URI(doc.find_first('td[@class="thumbnail"]/img/@src').value)
-              e.released_at = Date.parse(doc.find_first('td[@class="date"]/span[@class="release_date"]').content)
-              title_block = doc.find_first('td[@class="title"]')
-              e.title  = title_block.find_first('a/strong').content
-              e.subtitle = title_block.find_first('em').content
-              e.uri = URI(title_block.find_first('a/@href').value)
-              e.guests << title_block.find_first('strong').next.content.strip
-              e.duration = parse_duration(doc.find_first('td[@class="duration"]').content)
+              e.thumbnail = URI(doc.xpath('td[@class="thumbnail"]/img/@src').first)
+              e.released_at = Date.parse(doc.xpath('td[@class="date"]/span[@class="release_date"]').first)
+              title_block = doc.xpath('td[@class="title"]')
+              e.title  = title_block.xpath('a/strong').first.text
+              e.subtitle = title_block.xpath('em').first.text
+              e.uri = URI(title_block.xpath('a/@href').first.value)
+              e.guests << title_block.xpath('strong').first.next.text.strip
+              e.duration = parse_duration(doc.xpath('td[@class="duration"]').first.text)
             end
           end
 

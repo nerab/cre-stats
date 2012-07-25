@@ -15,8 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = CRE::Stats::VERSION
 
-  gem.add_runtime_dependency('rest-client', '~> 1.6')
-  gem.add_runtime_dependency('libxml-ruby', '~> 2.3')
+  gem.add_runtime_dependency('nokogiri')
   gem.add_runtime_dependency('activesupport', '~> 3.2')
   gem.add_runtime_dependency 'activemodel', '~> 3.2'
 

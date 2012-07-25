@@ -4,8 +4,8 @@ class TestArchive < MiniTest::Unit::TestCase
   include CRE::Stats
 
   def setup
-    doc = XML::HTMLParser.string(fixture('all.html')).parse
-    @archive = Archive.new(doc.find('/html/body/tr'))
+    doc = Nokogiri::HTML(fixture('all.html'))
+    @archive = Archive.new(doc.xpath('/html/body/tr'))
   end
 
   def test_empty
