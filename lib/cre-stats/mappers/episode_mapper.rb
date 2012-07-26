@@ -18,6 +18,9 @@
 module CRE
   module Stats
     module Mappers
+      #
+      # Maps a single episode from its HTML representation to a new Episode object
+      #
       class EpisodeMapper
         class << self
           def load(doc)

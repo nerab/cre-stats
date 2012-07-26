@@ -3,8 +3,11 @@
 require 'bundler'
 Bundler.require
 
-all = CRE::Stats::Archive.load.all.reverse
+include CRE::Stats
+cre_fetcher = Fetcher.new
+episodes = Episodes.new(cre_fetcher)
+#comments = CRE::Stats::Comments.new(cre_fetcher)
 
-STDERR.puts "Number of episodes (#{all.count} overall) distributed over the years:"
-puts 'year,episodes'
-all.group_by{|e| e.released_at.year}.each{|a| puts "#{a.first},#{a.last.size}"}
+STDERR.puts "Number of episodes (#{episodes.all.count} overall) distributed over the years:"
+puts 'year,# of episodes,total duration'
+episodes.all.group_by{|e| e.released_at.year}.each{|a| puts "#{a.first},#{a.last.size},#{Duration.new(a.last.inject(0){|sum, e| sum + e.duration})}"}

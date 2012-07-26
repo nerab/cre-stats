@@ -4,7 +4,7 @@ class TestArchiveLoad < MiniTest::Unit::TestCase
   include CRE::Stats
 
   def setup
-    @archive = mocked('setup'){Archive.load}
+    @archive = mocked('setup'){Episodes.new(Fetcher.new)}
   end
 
   def test_size

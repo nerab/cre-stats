@@ -1,21 +1,17 @@
 module CRE
   module Stats
     #
-    # An archive is a repository of episodes
+    # Repository of episodes
     #
-    class Archive
-      class << self
-        def load(url = 'http://cre.fm/archiv')
-          Mappers::ArchiveMapper.load(Nokogiri::HTML(open(url).read))
-        end
-      end
-
-      def initialize
+    class Episodes
+      def initialize(fetcher)
         @episodes_by_path = {}
         @episodes_by_guest = Hash.new{|hash, key| hash[key] = []}
+        @fetcher = fetcher
+        reload
       end
 
-      def add_episode(e)
+      def add(e)
         @episodes_by_path[e.uri.path] = e
         e.guests.each{|guest| @episodes_by_guest[guest] << e}
       end
@@ -30,6 +26,10 @@ module CRE
 
       def all
         @episodes_by_path.values.dup
+      end
+
+      def reload
+        Mappers::EpisodesMapper.load(Nokogiri::HTML(@fetcher.episodes)).reverse.each{|e| add(e)}
       end
     end
   end

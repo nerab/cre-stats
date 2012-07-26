@@ -9,7 +9,7 @@ module CRE
           def load(str)
             hms = DURATION_REGEXP.match(str)
             raise "The duration #{str} does not match the expected format #{DURATION_REGEXP}" if hms.nil?
-            hms.captures[0].to_i * 60 * 60 + hms.captures[1].to_i * 60 + hms.captures[2].to_i
+            Duration.new(hms.captures[0].to_i * 60 * 60 + hms.captures[1].to_i * 60 + hms.captures[2].to_i)
           end
 
           private

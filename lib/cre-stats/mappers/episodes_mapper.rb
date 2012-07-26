@@ -1,12 +1,15 @@
 module CRE
   module Stats
     module Mappers
-      class ArchiveMapper
+      class EpisodesMapper
+        #
+        # Returns an array of episodes in the same order the HTML provides
+        #
         class << self
           def load(doc)
-            Archive.new.tap do |a|
+            [].tap do |a|
               doc.xpath("//tr[@class='podcast_archive_element']").each do |tr|
-                a.add_episode(Mappers::EpisodeMapper.load(tr))
+                a << Mappers::EpisodeMapper.load(tr)
               end
             end
           end

@@ -4,7 +4,7 @@ class TestArchive < MiniTest::Unit::TestCase
   include CRE::Stats
 
   def setup
-    @archive = Archive.new
+    @archive = Episodes.new(NullFetcher.new)
   end
 
   def test_empty

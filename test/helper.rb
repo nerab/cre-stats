@@ -16,3 +16,9 @@ class MiniTest::Unit::TestCase
     VCR.use_cassette("#{self.class.name}_#{cassette}", :record => :new_episodes){block.call}
   end
 end
+
+class NullFetcher
+  def episodes
+    ''
+  end
+end
