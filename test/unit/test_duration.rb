@@ -111,6 +111,52 @@ class TestDuration < MiniTest::Unit::TestCase
     assert_parts(2, 0, 1, sec)
   end
 
+  def test_plus_zero
+    assert_equal(0, Duration.new + Duration.new)
+    assert_equal(0, Duration.new + 0)
+    assert_equal(0, 0 + Duration.new)
+  end
+
+  def test_plus_two
+    assert_equal(4, Duration.new(2) + Duration.new(2))
+    assert_equal(4, Duration.new(2) + 2)
+    assert_equal(4, 2 + Duration.new(2))
+  end
+
+  def test_minus_zero
+    assert_equal(0, Duration.new(2) - Duration.new(2))
+    assert_equal(0, Duration.new(2) - 2)
+    assert_equal(0, 2 - Duration.new(2))
+    assert_equal('00:00:00', (2 - Duration.new(2)).to_s)
+  end
+
+  def test_minus_positive
+    assert_equal(2, Duration.new(5) - Duration.new(3))
+    assert_equal(2, Duration.new(5) - 3)
+    assert_equal(2, 5 - Duration.new(3))
+    assert_equal('00:00:02', (5 - Duration.new(3)).to_s)
+  end
+
+  def test_minus_negative
+    assert_equal(-2, Duration.new(5) - Duration.new(7))
+    assert_equal(-2, Duration.new(5) - 7)
+    assert_equal(-2, 5 - Duration.new(7))
+
+    minus2 = (5 - Duration.new(7))
+    assert_parts(0, 0, -2, minus2)
+    assert_equal('-00:00:02', minus2.to_s)
+  end
+
+  def test_negative_to_s
+    assert_equal('-00:00:59', Duration.new(-1.minute + 1.second).to_s)
+    assert_equal('-00:01:00', Duration.new(-1.minute).to_s)
+    assert_equal('-00:01:08', Duration.new(-1.minute - 8.seconds).to_s)
+  end
+
+  def test_compare
+    skip 'TBD'
+  end
+
   private
 
   def assert_construction(str, int)
@@ -119,11 +165,11 @@ class TestDuration < MiniTest::Unit::TestCase
     assert_equal(str, d.to_s)
   end
 
-  def assert_parts(hours, minutes, seconds, dur)
-    d = Duration.new(dur)
+  def assert_parts(hours, minutes, seconds, int)
+    d = Duration.new(int)
 
-    assert_equal(hours, d.hours)
-    assert_equal(minutes, d.minutes)
-    assert_equal(seconds, d.seconds)
+    assert_equal(hours, d.hours, 'Wrong hours')
+    assert_equal(minutes, d.minutes, 'Wrong minutes')
+    assert_equal(seconds, d.seconds, 'Wrong seconds')
   end
 end

@@ -33,15 +33,15 @@ module CRE
       #
       # returns the hours part of the total duration
       #
-      def hours  
-        @seconds / 60 / 60
+      def hours
+        @seconds.abs / 60 / 60  * (@seconds < 0 ? -1 : 1)
       end
 
       #
       # returns the hours part of the total duration
       #
       def minutes
-        (@seconds / 60) % 60
+        (@seconds.abs / 60) % 60 * (@seconds < 0 ? -1 : 1)
       end
 
       #
@@ -49,11 +49,11 @@ module CRE
       # use #to_i.
       #
       def seconds
-        @seconds % 60
+        @seconds.abs % 60 * (@seconds < 0 ? -1 : 1)
       end
 
       def to_s
-        "#{'%02d' % hours}:#{'%02d' % minutes}:#{'%02d' % seconds}"
+        "#{'-' if @seconds < 0}#{'%02d' % hours.abs}:#{'%02d' % minutes.abs}:#{'%02d' % seconds.abs}"
       end
 
       def eql?(other)
