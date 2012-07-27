@@ -73,9 +73,9 @@ module CRE
       def <=>(other)
         case other
         when Duration
-          @i <=> other.to_i
+          @seconds <=> other.to_i
         when Numeric
-          @i <=> other
+          @seconds <=> other
         else
           a, b = other.coerce(self)
           a <=> b

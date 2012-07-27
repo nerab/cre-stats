@@ -153,8 +153,57 @@ class TestDuration < MiniTest::Unit::TestCase
     assert_equal('-00:01:08', Duration.new(-1.minute - 8.seconds).to_s)
   end
 
-  def test_compare
-    skip 'TBD'
+  def test_compare_zero
+    assert_equal(Duration.new, Duration.new)
+    assert_equal(0, Duration.new)
+    assert_equal(Duration.new, 0)
+  end
+
+  def test_compare_positive
+    assert_equal(Duration.new(42), Duration.new(42))
+    assert_equal(42, Duration.new(42))
+    assert_equal(Duration.new(42), 42)
+  end
+
+  def test_compare_negative
+    assert_equal(Duration.new(-23), Duration.new(-23))
+    assert_equal(-23, Duration.new(-23))
+    assert_equal(Duration.new(-23), -23)
+  end
+
+  def test_equals_zero
+    assert(Duration.new == Duration.new)
+    assert(0 == Duration.new)
+    assert(Duration.new == 0)
+  end
+
+  def test_equals_positive
+    assert(Duration.new(42) == Duration.new(42))
+    assert(42 == Duration.new(42))
+    assert(Duration.new(42) == 42)
+  end
+
+  def test_equals_negative
+    assert(Duration.new(-23) == Duration.new(-23))
+    assert(-23 == Duration.new(-23))
+    assert(Duration.new(-23) == -23)
+  end
+
+  def test_compare_same
+    assert_equal(0, Duration.new <=> Duration.new)
+    assert_compare_same(0)
+    assert_compare_same(42)
+    assert_compare_same(-11)
+  end
+
+  def test_compare_shorter
+    assert_compare_shorter(23, 42)
+    assert_compare_shorter(-42, 23)
+  end
+
+  def test_compare_longer
+    assert_compare_longer(42, 23)
+    assert_compare_longer(-23, -42)
   end
 
   private
@@ -171,5 +220,25 @@ class TestDuration < MiniTest::Unit::TestCase
     assert_equal(hours, d.hours, 'Wrong hours')
     assert_equal(minutes, d.minutes, 'Wrong minutes')
     assert_equal(seconds, d.seconds, 'Wrong seconds')
+  end
+
+  def assert_compare_same(number)
+    assert_equal(0, Duration.new(number) <=> Duration.new(number))
+    assert_equal(0, number <=> Duration.new(number))
+    assert_equal(0, Duration.new(number) <=> number)
+  end
+
+  def assert_compare_shorter(left, right)
+    assert(left < right)
+    assert(0 > (Duration.new(left) <=> Duration.new(right)))
+    assert(0 > (left <=> Duration.new(right)))
+    assert(0 > (Duration.new(left) <=> right))
+  end
+
+  def assert_compare_longer(left, right)
+    assert(left > right)
+    assert(0 < (Duration.new(left) <=> Duration.new(right)))
+    assert(0 < (left <=> Duration.new(right)))
+    assert(0 < (Duration.new(left) <=> right))
   end
 end
