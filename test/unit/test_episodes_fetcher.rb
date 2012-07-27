@@ -1,6 +1,6 @@
 require 'helper'
 
-class TestArchiveLoad < MiniTest::Unit::TestCase
+class TestEpisodesFetcher < MiniTest::Unit::TestCase
   include CRE::Stats
 
   def setup

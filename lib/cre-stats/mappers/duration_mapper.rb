@@ -1,6 +1,9 @@
 module CRE
   module Stats
     module Mappers
+      #
+      # Maps from hh:mm:ss strings to Duration
+      #
       class DurationMapper
         class << self
           #
