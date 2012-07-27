@@ -41,8 +41,8 @@ class TestEpisodesFetcher < MiniTest::Unit::TestCase
       #'CRE081 Neusprech im Schnüffelstaat',
       #'CRE093 Qualitätsmanagement in der Wikipedia',
       'CRE190 Rhetorik',
-    ].each do |h5_title|
-      assert(maha.any?{|e| e.title == h5_title})
+    ].each do |title|
+      assert(maha.any?{|e| e.title == title})
     end
   end
 
@@ -54,8 +54,8 @@ class TestEpisodesFetcher < MiniTest::Unit::TestCase
       'CRE047 Der Elektronische Reisepass',
       'CRE050 Der Wahlstift',
       'CRE058 24C3 Preview',
-    ].each do |ck_title|
-      assert(ck.any?{|e| e.title == ck_title})
+    ].each do |title|
+      assert(ck.any?{|e| e.title == title})
     end
   end
 end

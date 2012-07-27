@@ -16,47 +16,101 @@ class TestDuration < MiniTest::Unit::TestCase
   end
 
   def test_1_sec
-    sec = 1
+    sec = 1.second
     assert_construction('00:00:01', sec)
     assert_parts(0, 0, 1, sec)
   end
 
   def test_59_sec
-    sec = 59
+    sec = 59.seconds
     assert_construction('00:00:59', sec)
     assert_parts(0, 0, 59, sec)
   end
 
   def test_60_sec
-    sec = 60
+    sec = 1.minute
     assert_construction('00:01:00', sec)
     assert_parts(0, 1, 0, sec)
   end
 
   def test_61_sec
-    sec = 61
+    sec = 1.minute + 1.seconds
     assert_construction('00:01:01', sec)
     assert_parts(0, 1, 1, sec)
   end
 
   def test_3_min_59_sec
-    sec = 180 + 59
+    sec = 3.minutes + 59.seconds
     assert_construction('00:03:59', sec)
     assert_parts(0, 3, 59, sec)
   end
 
   def test_3_min_60_sec
-    sec = 180 + 60
+    sec = 3.minutes + 60.seconds
     assert_construction('00:04:00', sec)
     assert_parts(0, 4, 0, sec)
   end
 
   def test_3_min_61_sec
-    sec = 180 + 61
+    sec = 3.minutes + 61.seconds
     assert_construction('00:04:01', sec)
     assert_parts(0, 4, 1, sec)
   end
-  
+
+  def test_59_min_59_sec
+    sec = 59.minutes + 59.seconds
+    assert_construction('00:59:59', sec)
+    assert_parts(0, 59, 59, sec)
+  end
+
+  def test_59_min_60_sec
+    sec = 59.minutes + 60.seconds
+    assert_construction('01:00:00', sec)
+    assert_parts(1, 0, 0, sec)
+  end
+
+  def test_59_min_61_sec
+    sec = 59.minutes + 61.seconds
+    assert_construction('01:00:01', sec)
+    assert_parts(1, 0, 1, sec)
+  end
+
+  def test_1_hr_59_sec
+    sec = 1.hour + 59.seconds
+    assert_construction('01:00:59', sec)
+    assert_parts(1, 0, 59, sec)
+  end
+
+  def test_1_hr_60_sec
+    sec = 1.hour + 60.seconds
+    assert_construction('01:01:00', sec)
+    assert_parts(1, 1, 0, sec)
+  end
+
+  def test_1_hr_61_sec
+    sec = 1.hour + 61.seconds
+    assert_construction('01:01:01', sec)
+    assert_parts(1, 1, 1, sec)
+  end
+
+  def test_1_hr_59_min_59_sec
+    sec = 1.hour + 59.minutes + 59.seconds
+    assert_construction('01:59:59', sec)
+    assert_parts(1, 59, 59, sec)
+  end
+
+  def test_1_hr_59_min_60_sec
+    sec = 1.hour + 59.minutes + 60.seconds
+    assert_construction('02:00:00', sec)
+    assert_parts(2, 0, 0, sec)
+  end
+
+  def test_1_hr_59_min_61_sec
+    sec = 1.hour + 59.minutes + 61.seconds
+    assert_construction('02:00:01', sec)
+    assert_parts(2, 0, 1, sec)
+  end
+
   private
 
   def assert_construction(str, int)

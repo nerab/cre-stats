@@ -41,7 +41,7 @@ module CRE
       # returns the hours part of the total duration
       #
       def minutes
-        @seconds / 60
+        (@seconds / 60) % 60
       end
 
       #
