@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>CRE Charts Example</title>
+
+
+		<!-- 1. Add these JavaScript inclusions in the head of your page -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+
+
+		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
+		<script type="text/javascript">
+		var chart;
+
+		function requestData() {
+			$.ajax({
+				url: '../TODO',
+				success: function(point) {
+					chart.series[0].addPoint(eval(point), true, false);
+				},
+			});
+		}
+
+		$(document).ready(function() {
+			chart = new Highcharts.Chart({
+				chart: {
+					renderTo: 'container',
+					defaultSeriesType: 'spline',
+					events: {
+						load: requestData
+					}
+				},
+				title: {
+					text: 'Live random data'
+				},
+				xAxis: {
+					type: 'datetime',
+					tickPixelInterval: 150,
+					maxZoom: 20 * 1000
+				},
+				yAxis: {
+					minPadding: 0.2,
+					maxPadding: 0.2,
+					title: {
+						text: 'Value',
+						margin: 80
+					}
+				},
+				series: [{
+					name: 'Random data',
+					data: []
+				}]
+			});
+		});
+		</script>
+
+	</head>
+	<body>
+		<div id="container" style="width: 800px; height: 400px; margin: 0 auto"></div>
+	</body>
+</html>

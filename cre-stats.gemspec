@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency('nokogiri')
   gem.add_runtime_dependency('activesupport', '~> 3.2')
   gem.add_runtime_dependency('activemodel', '~> 3.2')
+  gem.add_runtime_dependency('jbuilder')
 
   gem.add_development_dependency 'guard-minitest', '~> 0.5'
   gem.add_development_dependency 'guard-bundler', '~> 1.0'
