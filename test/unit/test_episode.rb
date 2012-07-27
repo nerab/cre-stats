@@ -13,18 +13,10 @@ class TestEpisode < MiniTest::Unit::TestCase
     assert(@episode.invalid?)
   end
 
-  def test_thumbnail_string
-    skip 'Must test string assignment'
-  end
-
   def test_release_date
     @episode.released_at = Date.parse('02.07.2012')
     assert_equal(Date.new(2012, 7, 2), @episode.released_at)
     assert(@episode.invalid?)
-  end
-
-  def test_release_date_string
-    skip 'Must test string assignment'
   end
 
   def test_title
