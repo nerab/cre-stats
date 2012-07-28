@@ -1,0 +1,35 @@
+{
+  "resources": {
+    "self": {
+      "url": "/"
+      },
+    "episodes": {
+      "count": 194,
+      "urltemplate": "/episodes/{id}",
+      "episode":[{
+          "id": "",
+          "title": "",
+          "subtitle": "",
+          "created": ,
+          "duration": ,
+          "uri": "",
+          "thumbnail": "",
+          "image": "",
+          "guests": [{
+            "id": "",
+            "name": "",
+            "uri": "/guests/"
+            },{
+            "id": "",
+            "name": "",
+            "uri": "/guests/"
+            }
+          ]}
+      ]}
+    },
+    "guests": {
+    },
+    "comments":{
+    }
+  }
+}
