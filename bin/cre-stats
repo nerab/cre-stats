@@ -3,89 +3,14 @@
 require 'bundler'
 Bundler.require
 
-require 'jbuilder'
-
 include CRE::Stats
 cre_fetcher = Fetcher.new
 episodes = Episodes.new(cre_fetcher)
+#guests = CRE::Stats::Guests.new(cre_fetcher)
 #comments = CRE::Stats::Comments.new(cre_fetcher)
 
-STDERR.puts "Number of episodes (#{episodes.all.count} overall) distributed over the years:"
-
 result = Jbuilder.encode do |json|
-  json.resources do |json|
-    json.self  do |json|
-      json.url "/"
-      json.label "Home"
-    end
-
-    json.episodes do |json|
-      json.url "/episodes"
-      json.label "Episodes"
-      json.count episodes.all.size
-      json.by_year(episodes.all.group_by{|e| e.released_at.year}) do |json, group|
-        year, episodes_in_year = group.first, group.last
-        json.year year.to_s
-        json.count episodes_in_year.size
-
-        json.duration do |json|
-          overall = episodes_in_year.inject(0){|sum, e| sum + e.duration}.to_i
-          json.overall overall
-          json.average overall / episodes_in_year.size
-        end
-      end
-    end
-
-    json.guests do |json|
-      json.url "/guests"
-      json.label do |json|
-        json.en "Guests"
-        json.de "Gauml;ste"
-      end
-      json.count -1
-    end
-
-    json.comments do |json|
-      json.url "/comments"
-      json.label do |json|
-        json.en "Comments"
-        json.de "Kommentare"
-      end
-      json.count -1
-    end
-  end
+  Presenters::Presenter.to_json(json, episodes)
 end
 
 puts result
-
-=begin
-# Episodes
-{
-    "episodes": {
-      // hier nochmal die stats über alle episoden sowie links zu den einzelnen
-      "count": 194,
-
-      "episode":[{
-          "id": "",
-          "title": "",
-          "subtitle": "",
-          "created": ,
-          "duration": ,
-          "uri": "",
-          "thumbnail": "",
-          "image": "",
-          "guests": [{
-            "id": "",
-            "name": "",
-            "uri": "/guests/"
-            },{
-            "id": "",
-            "name": "",
-            "uri": "/guests/"
-            }
-          ]}
-      ]}
-    }
-  }
-}
-=end

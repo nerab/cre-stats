@@ -3,15 +3,15 @@ module CRE
     class Episode
       include ActiveModel::Validations
 
-      attr_accessor :title, :uri, :released_at, :subtitle, :thumbnail, :duration
+      attr_accessor :id, :title, :uri, :released_at, :subtitle, :thumbnail, :duration
       attr_reader   :guests
 
-      validates :title, :uri, :released_at, :duration, :subtitle, :thumbnail,
+      validates :id, :numericality => {:only_integer => true, :greater_than => 0}
+
+      validates :title, :uri, :released_at, :duration, :subtitle, :thumbnail, :duration,
                 :presence => true
 
-      validates :duration, :numericality => {:only_integer => true, :greater_than => 0}
-
-      validates :guests, :with => :validates_count
+      validates :duration, :with => :validates_duration
       validates :uri, :thumbnail, :with => :validates_uri
 
       def initialize
@@ -26,15 +26,15 @@ module CRE
 
       private
 
-      def validates_count(attrib)
-        errors[attrib] << "Must have at least one #{attrib.to_s.singularize}" if send(attrib).empty?
+      def validates_duration(attrib)
+        errors[attrib] << "#{attrib} must be longer than zero" unless send(attrib).to_i > 0
       end
 
       def validates_uri(attrib)
         begin
           URI(send(attrib))
         rescue
-          errors[attrib] << "Must be a URL. #{$!.message}"
+          errors[attrib] << "#{attrib} must be a valid URL. #{$!.message}"
         end
       end
     end

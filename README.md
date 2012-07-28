@@ -8,6 +8,59 @@ Provides simple statistics about [CRE](http://cre.fm/) and its guests.
 
 ![Graph](/nerab/cre-stats/raw/master/examples/episodes_by_year.png)
 
+# Available Metrics
+
+## Episodes
+### Count
+  * Total count of all episodes
+  * As time series: episode count by
+    - year
+    - quarter
+    - month
+    - week
+    - day
+
+### Duration
+  * Total duration of all episodes
+  * As time series: average duration by
+    - year
+    - quarter
+    - month
+    - week
+    - day
+
+## Guests
+### Count
+  * Overall number of guests
+    - with repeating guests
+    - unique guests
+  * With parameter: time series of guest count by
+    - year
+    - quarter
+    - month
+    - week
+    - day
+  * Number of guests by episode
+
+Filtering is available on each parameter. In order to provide something like the
+
+  Average duration of episodes by month between Jan 2010 to June 2011
+
+the client would pass in this:
+
+  TODO
+
+## TODO
+  - minimum
+  - maximum
+  - average
+
+for the various metrics
+
+## Combined Metrics
+
+Integration of different metrics happens on the client. For instance, if a client wishes to present the number of episodes over years and the average duration of episodes over years, it woult fetch both metrics separately and construct presentations from it.
+
 ## Installation
 
 Add this line to your application's Gemfile:

@@ -9,7 +9,9 @@ module CRE
           def load(doc)
             [].tap do |a|
               doc.xpath("//tr[@class='podcast_archive_element']").each do |tr|
-                a << Mappers::EpisodeMapper.load(tr)
+                episode = Mappers::EpisodeMapper.load(tr)
+                raise EpisodeInvalid.new(episode) if episode.invalid?
+                a << episode
               end
             end
           end

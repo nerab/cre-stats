@@ -4,9 +4,7 @@ module CRE
     # Repository of episodes
     #
     class Episodes
-      extend Forwardable
       include Enumerable
-      def_delegator :@episodes_by_path, :each
 
       def initialize(fetcher)
         @episodes_by_path = {}
@@ -30,6 +28,14 @@ module CRE
 
       def reload
         Mappers::EpisodesMapper.load(Nokogiri::HTML(@fetcher.episodes)).reverse.each{|e| add(e)}
+      end
+
+      def each(&block)
+        @episodes_by_path.values.each(&block)
+      end
+
+      def empty?
+        @episodes_by_path.values.empty?
       end
     end
   end
