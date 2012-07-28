@@ -212,6 +212,8 @@ class TestDuration < MiniTest::Unit::TestCase
     d = Duration.new(int)
     assert_equal(int, d.to_i)
     assert_equal(str, d.to_s)
+    assert_equal(int, Duration.new(str).to_i)
+    assert_equal(str, Duration.new(str).to_s)
   end
 
   def assert_parts(hours, minutes, seconds, int)
