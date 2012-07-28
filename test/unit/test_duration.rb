@@ -9,6 +9,19 @@ class TestDuration < MiniTest::Unit::TestCase
     assert_equal('00:00:00', d.to_s)
   end
 
+  def test_invalid_strings
+    assert_raises(ArgumentError){Duration.new('')}
+    assert_raises(ArgumentError){Duration.new('foo')}
+
+    assert(Duration.new('00:00:59'))
+    assert_raises(ArgumentError){Duration.new('00:00:60')}
+    assert(Duration.new('00:01:00'))
+
+    assert(Duration.new('00:59:00'))
+    assert_raises(ArgumentError){Duration.new('00:60:00')}
+    assert(Duration.new('99:00:00'))
+  end
+
   def test_zero
     sec = 0
     assert_construction('00:00:00', sec)
@@ -109,6 +122,43 @@ class TestDuration < MiniTest::Unit::TestCase
     sec = 1.hour + 59.minutes + 61.seconds
     assert_construction('02:00:01', sec)
     assert_parts(2, 0, 1, sec)
+  end
+
+  def test_23_hr_59_min_59_sec
+    sec = 23.hours + 59.minutes + 59.seconds
+    assert_construction('23:59:59', sec)
+    assert_parts(23, 59, 59, sec)
+  end
+
+  # we don't overflow to days
+  def test_23_hr_59_min_60_sec
+    sec = 23.hours + 59.minutes + 60.seconds
+    assert_construction('24:00:00', sec)
+    assert_parts(24, 0, 0, sec)
+  end
+
+  def test_23_hr_59_min_61_sec
+    sec = 23.hours + 59.minutes + 61.seconds
+    assert_construction('24:00:01', sec)
+    assert_parts(24, 0, 1, sec)
+  end
+
+  def test_99_hr_59_min_59_sec
+    sec = 99.hours + 59.minutes + 59.seconds
+    assert_construction('99:59:59', sec)
+    assert_parts(99, 59, 59, sec)
+  end
+
+  def test_99_hr_59_min_60_sec
+    sec = 99.hours + 59.minutes + 60.seconds
+    assert_construction('100:00:00', sec)
+    assert_parts(100, 0, 0, sec)
+  end
+
+  def test_99_hr_59_min_61_sec
+    sec = 99.hours + 59.minutes + 61.seconds
+    assert_construction('100:00:01', sec)
+    assert_parts(100, 0, 1, sec)
   end
 
   def test_plus_zero

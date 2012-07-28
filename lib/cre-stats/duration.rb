@@ -98,9 +98,17 @@ module CRE
         op(:-, other)
       end
 
+      def *(other)
+        op(:*, other)
+      end
+
+      def /(other)
+        op(:/, other)
+      end
+
       private
 
-      DURATION_REGEXP = /([0-9]{2}):([0-9]{2}):([0-9]{2})/
+      DURATION_REGEXP = /([0-9]+):([0-5][0-9]):([0-5][0-9])/
 
       #
       # Loads a duration (seconds) from hh:mm:ss string
