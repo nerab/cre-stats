@@ -22,7 +22,7 @@ Or install it yourself as:
 
     $ gem install cre-stats
 
-## Usage
+## Sample Script
 
 Once the gem is installed, the `cre-stats` script will be in the user's path. Call it and it will print some simple statistics for [CRE](http://cre.fm/).
 
