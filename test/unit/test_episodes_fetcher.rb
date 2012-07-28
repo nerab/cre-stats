@@ -4,11 +4,11 @@ class TestEpisodesFetcher < MiniTest::Unit::TestCase
   include CRE::Stats
 
   def setup
-    @archive = mocked('setup'){Episodes.new(Fetcher.new)}
+    @episodes = mocked('setup'){Episodes.new(Fetcher.new)}
   end
 
   def test_size
-    assert_equal(194, @archive.all.size)
+    assert_equal(194, @episodes.all.size)
   end
 
   # TODO Continue checking after episode 60
@@ -24,7 +24,7 @@ class TestEpisodesFetcher < MiniTest::Unit::TestCase
       [20, 57, ],
     ].each_with_index do |episode_ids, guest_count|
       episode_ids.each do |id|
-        episode = @archive.find(id)
+        episode = @episodes.find(id)
         assert(episode)
         assert_equal(guest_count, episode.guests.size)
       end
@@ -32,7 +32,7 @@ class TestEpisodesFetcher < MiniTest::Unit::TestCase
   end
 
   def test_find_by_guest_maha
-    maha = @archive.find_by_guest('Martin Haase')
+    maha = @episodes.find_by_guest('Martin Haase')
     assert_equal(5, maha.size)
     assert(maha.none?{|e| e.title == 'CRE042 OpenMoko'})
     [
@@ -47,7 +47,7 @@ class TestEpisodesFetcher < MiniTest::Unit::TestCase
   end
 
   def test_find_by_guest_ck
-    ck = @archive.find_by_guest('Constanze Kurz')
+    ck = @episodes.find_by_guest('Constanze Kurz')
     assert_equal(3, ck.size)
     assert(ck.none?{|e| e.title == 'CRE057 BitTorrent'})
     [
