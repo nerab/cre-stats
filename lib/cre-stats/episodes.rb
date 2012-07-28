@@ -4,6 +4,10 @@ module CRE
     # Repository of episodes
     #
     class Episodes
+      extend Forwardable
+      include Enumerable
+      def_delegator :@episodes_by_path, :each
+
       def initialize(fetcher)
         @episodes_by_path = {}
         @episodes_by_guest = Hash.new{|hash, key| hash[key] = []}
@@ -22,10 +26,6 @@ module CRE
 
       def find_by_guest(guest)
         @episodes_by_guest[guest]
-      end
-
-      def all
-        @episodes_by_path.values.dup
       end
 
       def reload

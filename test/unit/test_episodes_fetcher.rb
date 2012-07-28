@@ -8,7 +8,7 @@ class TestEpisodesFetcher < MiniTest::Unit::TestCase
   end
 
   def test_size
-    assert_equal(194, @episodes.all.size)
+    assert_equal(194, @episodes.count)
   end
 
   # TODO Continue checking after episode 60
