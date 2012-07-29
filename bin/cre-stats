@@ -25,7 +25,7 @@ result = Jbuilder.encode do |json|
     presenter.to_json(json, resources, true)
   when 2 # /episodes or /guests
     presenter.to_json(json, resources[resource_name], true)
-  when 3 # /episodes/194
+  when 3 # /episodes/cre194
     id = parts[2]
     presenter.to_json(json, resources[resource_name].find(id), true)
 #    when

@@ -36,6 +36,6 @@ class TestPresenters < MiniTest::Unit::TestCase
       RootPresenter.to_json(json, @episodes)
     end
 
-    skip 'Add assertions'
+    refute(result.blank?)
   end
 end

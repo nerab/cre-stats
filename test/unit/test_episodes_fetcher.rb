@@ -25,7 +25,7 @@ class TestEpisodesFetcher < MiniTest::Unit::TestCase
       [20, 57, ],
     ].each_with_index do |episode_ids, guest_count|
       episode_ids.each do |id|
-        episode = @episodes.find(id)
+        episode = @episodes.find("cre#{"%03d" % id}")
         assert(episode)
         assert_equal(guest_count, episode.guests.size)
       end
