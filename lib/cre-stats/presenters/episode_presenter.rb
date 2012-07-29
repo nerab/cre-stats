@@ -6,7 +6,9 @@ module CRE
       #
       class EpisodePresenter
         class << self
-          def to_json(json, episode)
+          def to_json(json, episode, include_children = false)
+            return if episode.nil?
+
             json.id episode.id
             json.title episode.title
             json.subtitle episode.subtitle
@@ -18,6 +20,7 @@ module CRE
             json.uri episode.uri.to_s
             json.thumbnail episode.thumbnail.to_s
 
+            # Guests are so few that we always present them, regardless of include_children
             json.guests(episode.guests)
             # TODO Introduce proper Guest class with id, name and URI
 =begin

@@ -5,12 +5,37 @@ Bundler.require
 
 include CRE::Stats
 cre_fetcher = Fetcher.new
-episodes = Episodes.new(cre_fetcher)
-#guests = CRE::Stats::Guests.new(cre_fetcher)
-#comments = CRE::Stats::Comments.new(cre_fetcher)
+resources = ResourceRegistry.new(cre_fetcher)
+
+# Parse URI and extract what the user wants
+if ARGV.empty?
+  uri = URI('/')
+else
+  uri = URI(ARGV.first)
+end
+
+#  all = Episodes.new(cre_fetcher)
 
 result = Jbuilder.encode do |json|
-  Presenters::Presenter.to_json(json, episodes)
+
+  parts = uri.path.split('/')
+
+  resource_name = parts[1]
+  presenter = Presenters.find(resource_name)
+
+  case parts.size
+  when 0
+    presenter.to_json(json, resources, true)
+  when 2
+    presenter.to_json(json, resources[resource_name])
+  when 3
+    id = parts[2].to_i
+    presenter.to_json(json, resources[resource_name].find(id))
+#    when
+#      Presenters::EpisodesGroupedByPresenter.to_json(json, all.group_by{|e| e.released_at.year}, :year)
+  else
+    raise ArgumentError, "Don't know what to do with these arguments"
+  end
 end
 
 puts result

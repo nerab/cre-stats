@@ -1,10 +1,10 @@
 module CRE
   module Stats
     module Presenters
-      class EpisodesByYearPresenter
+      class EpisodesGroupedByPresenter
         class << self
-          def to_json(json, episodes)
-            json.by_year(episodes.all.group_by{|e| e.released_at.year}) do |json, group|
+          def to_json(json, episodes, key)
+            json.by_year(episodes) do |json, group|
               year, episodes_in_year = group.first, group.last
               json.year year.to_s
               json.count episodes_in_year.size
