@@ -20,6 +20,9 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency('activemodel', '~> 3.2')
   gem.add_runtime_dependency('jbuilder', '~> 0.4')
 
+  gem.add_runtime_dependency('sinatra')# , '~> 0.4'
+  gem.add_development_dependency('shotgun')# , '~> 0.4'
+
   gem.add_development_dependency 'guard-minitest', '~> 0.5'
   gem.add_development_dependency 'guard-bundler', '~> 1.0'
   gem.add_development_dependency 'coolline', '~> 0.3'

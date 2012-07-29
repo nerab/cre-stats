@@ -6,6 +6,8 @@ require 'nokogiri'
 require 'open-uri'
 require 'jbuilder'
 
+require 'sinatra/base'
+
 require 'cre-stats/version'
 require 'cre-stats/errors'
 require 'cre-stats/duration'
@@ -27,7 +29,9 @@ require 'cre-stats/presenters/episodes_presenter'
 require 'cre-stats/presenters/episode_presenter'
 require 'cre-stats/presenters/guests_presenter'
 require 'cre-stats/presenters/comments_presenter'
+require 'cre-stats/presenters/episodes_grouped_by_presenter'
 
+require 'cre-stats/server/server'
 
 module CRE
   module Stats
