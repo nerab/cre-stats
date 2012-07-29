@@ -8,19 +8,19 @@ module CRE
         include Enumerable
 
         def initialize(fetcher)
-          @episodes_by_path = {}
+          @episodes_by_id = {}
           @episodes_by_guest = Hash.new{|hash, key| hash[key] = []}
           @fetcher = fetcher
           reload
         end
 
         def add(e)
-          @episodes_by_path[e.uri.path] = e
+          @episodes_by_id[e.id] = e
           e.guests.each{|guest| @episodes_by_guest[guest] << e}
         end
 
         def find(id)
-          @episodes_by_path["/cre#{"%03d" % id}"]
+          @episodes_by_id[id]
         end
 
         def find_by_guest(guest)
@@ -32,11 +32,11 @@ module CRE
         end
 
         def each(&block)
-          @episodes_by_path.values.each(&block)
+          @episodes_by_id.values.each(&block)
         end
 
         def empty?
-          @episodes_by_path.values.empty?
+          @episodes_by_id.values.empty?
         end
       end
     end

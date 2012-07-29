@@ -1,7 +1,7 @@
 require 'helper'
 
 class TestEpisodes < MiniTest::Unit::TestCase
-  include CRE::Stats
+  include CRE::Stats::Resources
 
   def setup
     @episodes = Episodes.new(NullFetcher.new)

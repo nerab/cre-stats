@@ -33,10 +33,7 @@ module CRE
               e.uri = URI(title_block.xpath('a/@href').first.value)
               GuestMapper.load(title_block.xpath('strong').first.next.text.strip).each{|guest| e.add_guest(guest)}
               e.duration = DurationMapper.load(doc.xpath('td[@class="duration"]').first.text)
-
-              # Extract the id from the URI. If no match was found, the match will yield
-              # nil, which is then converted to 0 by to_i. The validation of
-              e.id = /\d{3,}$/.match(e.uri.to_s){|m| m[0]}.to_i
+              e.id = e.uri.path.split('/').last
             end
           end
         end

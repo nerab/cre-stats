@@ -6,9 +6,7 @@ module CRE
       attr_accessor :id, :title, :uri, :released_at, :subtitle, :thumbnail, :duration
       attr_reader   :guests
 
-      validates :id, :numericality => {:only_integer => true, :greater_than => 0}
-
-      validates :title, :uri, :released_at, :duration, :subtitle, :thumbnail, :duration,
+      validates :id, :title, :uri, :released_at, :duration, :subtitle, :thumbnail, :duration,
                 :presence => true
 
       validates :duration, :with => :validates_duration

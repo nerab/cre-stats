@@ -2,6 +2,7 @@ require 'helper'
 
 class TestEpisodesFetcher < MiniTest::Unit::TestCase
   include CRE::Stats
+  include CRE::Stats::Resources
 
   def setup
     @episodes = mocked('setup'){Episodes.new(Fetcher.new)}

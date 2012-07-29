@@ -13,6 +13,10 @@ class TestEpisodeMapper < MiniTest::Unit::TestCase
     refute_nil(@episode)
   end
 
+  def test_id
+    assert_equal('cre193', @episode.id)
+  end
+
   def test_guest_count
     assert_equal(Episode, @episode.class)
     assert_equal(1, @episode.guests.size)

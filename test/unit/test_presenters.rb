@@ -2,6 +2,7 @@ require 'helper'
 
 class TestPresenters < MiniTest::Unit::TestCase
   include CRE::Stats
+  include CRE::Stats::Resources
   include CRE::Stats::Presenters
 
   def setup

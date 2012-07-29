@@ -31,13 +31,8 @@ module CRE
                 end
               end
 
-                #EpisodesPresenter.to_json(json, resources[:episodes])
-
-                # TODO Provide how to get to episodes by_year
-                # with a proper URI template
-
-                #GuestsPresenter.to_json(json, resources[:guests])
-                #CommentsPresenter.to_json(json, resources[:comments])
+              # TODO Provide how to get to episodes by_year
+              # with a proper URI template
             end
           end
         end

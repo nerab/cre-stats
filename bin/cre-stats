@@ -14,10 +14,7 @@ else
   uri = URI(ARGV.first)
 end
 
-#  all = Episodes.new(cre_fetcher)
-
 result = Jbuilder.encode do |json|
-
   parts = uri.path.split('/')
 
   resource_name = parts[1]
@@ -29,7 +26,7 @@ result = Jbuilder.encode do |json|
   when 2 # /episodes or /guests
     presenter.to_json(json, resources[resource_name], true)
   when 3 # /episodes/194
-    id = parts[2].to_i
+    id = parts[2]
     presenter.to_json(json, resources[resource_name].find(id), true)
 #    when
 #      Presenters::EpisodesGroupedByPresenter.to_json(json, all.group_by{|e| e.released_at.year}, :year)

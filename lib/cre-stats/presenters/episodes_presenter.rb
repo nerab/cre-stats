@@ -7,12 +7,15 @@ module CRE
             json.episodes do |json|
               json.urltemplate "/episodes/{id}"
               json.label do |json|
-                json.en "Episoden"
+                json.en "Episodes"
                 json.de "Folgen"
               end
 
               if episodes.nil?
                 json.count -1
+              elsif !episodes.respond_to?(:count)
+                json.count 1
+                EpisodePresenter.to_json(json, episodes)
               else
                 json.count episodes.count
 
@@ -20,6 +23,7 @@ module CRE
                   EpisodePresenter.to_json(json, episode)
                 end if include_children
               end
+
             end
           end
         end
