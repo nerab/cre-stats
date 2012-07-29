@@ -2,9 +2,11 @@ module CRE
   module Stats
     module Resources
       #
-      # Repository of episodes
+      # Collection of episodes
       #
       class Episodes < Resource
+        include Enumerable
+
         def initialize(fetcher)
           @episodes_by_path = {}
           @episodes_by_guest = Hash.new{|hash, key| hash[key] = []}

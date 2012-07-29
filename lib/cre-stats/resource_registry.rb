@@ -9,13 +9,12 @@ module CRE
 
         # http://stackoverflow.com/a/833179
         Resources.constants.select{|c| Class === Resources.const_get(c)}.each do |resource_class|
-          @resources[resource_class] = Resources.const_get(resource_class).new(@fetcher)
+          @resources[resource_class.to_s.underscore.to_sym] = Resources.const_get(resource_class).new(@fetcher)
         end
       end
 
       def [](collection)
-        @resources[collection]
-        #Resources.const_get(collection.titleize).new(@fetcher)
+        @resources[collection.to_sym]
       end
 
       def each(&block)

@@ -27,7 +27,7 @@ module CRE
 
               if include_children
                 resources.each do |resource|
-                  Presenters.find(resource.to_s).to_json(json, resource)
+                  Presenters.find(resource.class.name.demodulize).to_json(json, resource)
                 end
               end
 

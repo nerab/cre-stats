@@ -24,13 +24,13 @@ result = Jbuilder.encode do |json|
   presenter = Presenters.find(resource_name)
 
   case parts.size
-  when 0
+  when 0 # /
     presenter.to_json(json, resources, true)
-  when 2
-    presenter.to_json(json, resources[resource_name])
-  when 3
+  when 2 # /episodes or /guests
+    presenter.to_json(json, resources[resource_name], true)
+  when 3 # /episodes/194
     id = parts[2].to_i
-    presenter.to_json(json, resources[resource_name].find(id))
+    presenter.to_json(json, resources[resource_name].find(id), true)
 #    when
 #      Presenters::EpisodesGroupedByPresenter.to_json(json, all.group_by{|e| e.released_at.year}, :year)
   else
