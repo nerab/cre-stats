@@ -52,17 +52,15 @@ Provides simple statistics about [CRE](http://cre.fm/) and its guests.
       * The guests themselves without associates
 
 ## Filtering
-In order to query for the average duration of episodes by month between Jan 2010 to June 2011, a client would specify a by-x resource:
+In order to query for the average duration of episodes by month between Jan 2010 to June 2011, a client would specify a by-x resource and specify constraints as query parameters, either
 
-Optionally, constraints can be specified as query parameters
+* as list:
 
-As list:
+    /episodes/by-year?year=2005&year=2006&year=2007
 
-  /episodes/by-year?year=2005&year=2006&year=2007
+* or as range:
 
-or as range:
-
-  /guests/by-month?from=200501&to=201106
+    /guests/by-month?from=200501&to=201106
 
 ## TODO
 
