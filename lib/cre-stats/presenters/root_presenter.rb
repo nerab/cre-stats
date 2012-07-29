@@ -9,7 +9,7 @@ module CRE
         if resource_name.blank?
           RootPresenter
         else
-          const_get("#{resource_name.to_s.titleize}Presenter")
+          const_get("#{resource_name.to_s.camelize}Presenter")
         end
       end
 
