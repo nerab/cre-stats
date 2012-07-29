@@ -41,12 +41,12 @@ Provides simple statistics about [CRE](http://cre.fm/) and its guests.
     - Total duration of all episodes any guest participated in
     - The guests themselves without associates
   * One: `/guests/Martin%20Haase`
-    - All episodes that guest participated in
+    - Total count of episodes that guest participated in
     - Total duration of all episodes that guest participated in
     - The guest himself without associates
-  * Grouped by `/episodes/by-quarter`
-    - year, quarter, month, week, or day
-    - within each group, includes
+  * Grouped by `/guests/by-quarter`
+    - By year, quarter, month, week, or day
+    - Within each group, includes
       * Total count of all episodes
       * Total duration of all episodes a guest participated in
       * The guests themselves without associates
