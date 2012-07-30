@@ -5,10 +5,10 @@ module CRE
         class << self
           def to_json(json, episodes, include_children = false)
             json.episodes do |json|
-              json.urltemplate "/episodes/{id}"
+              json.urltemplate "/episode/{id}"
               json.label do |json|
-                json.en "Episodes"
-                json.de "Folgen"
+                json.en "Episode"
+                json.de "Folge"
               end
 
               if episodes.nil?
