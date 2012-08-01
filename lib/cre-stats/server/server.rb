@@ -16,22 +16,7 @@ module CRE
         end
       end
 
-# TODO
-# /episodes/by-year?year=2005&year=2006&year=2007
-# /guests/by-month?from=200501&to=201106
-
-      get '/episodes' do
-        Jbuilder.encode do |json|
-          Presenters.find(:episodes).to_json(json, @resources[:episodes], true)
-        end
-      end
-
-      get '/episode/:id' do
-        Jbuilder.encode do |json|
-          Presenters.find(:episode).to_json(json, @resources[:episodes].find(params[:id]), true)
-        end
-      end
-
+      # /episodes/by-year etc.
       get '/episodes/by-:period' do
         Jbuilder.encode do |json|
           grouped = @resources[:episodes].group_by{|e| e.released_at.send(params[:period])}
@@ -39,16 +24,26 @@ module CRE
         end
       end
 
-      get '/guests' do
+# TODO
+# /episodes/by-year?year=2005&year=2006&year=2007
+# /guests/by-month?from=200501&to=201106
+# /guests/by-month etc.
 
+      # /episodes
+      # /guests
+      get '/:resources' do
+        Jbuilder.encode do |json|
+          Presenters.find(params[:resources]).to_json(json, @resources[params[:resource]], true)
+        end
       end
 
-      get '/guest/:id' do
-
-      end
-
-      get '/guests/by-:period' do
-
+      # /episode/cre194
+      # /guest/Martin%20Haase
+      get '/:resource/:id' do
+        Jbuilder.encode do |json|
+          presenter = Presenters.find(params[:resource])
+          presenter.to_json(json, @resources[params[:resource].pluralize].find(params[:id]), true)
+        end
       end
     end
   end

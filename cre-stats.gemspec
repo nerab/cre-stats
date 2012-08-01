@@ -21,7 +21,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency('jbuilder', '~> 0.4')
 
   gem.add_runtime_dependency('sinatra')# , '~> 0.4'
-  gem.add_development_dependency('shotgun')# , '~> 0.4'
 
   gem.add_development_dependency 'guard-minitest', '~> 0.5'
   gem.add_development_dependency 'guard-bundler', '~> 1.0'
@@ -32,4 +31,8 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency('vcr')
   gem.add_development_dependency('webmock')
+
+  gem.add_development_dependency('shotgun')
+  gem.add_development_dependency('rack-test')
+  gem.add_development_dependency('multi_json')
 end

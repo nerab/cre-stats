@@ -14,6 +14,7 @@ module CRE
       end
 
       def [](collection)
+        return [] if collection.nil?
         @resources[collection.to_sym]
       end
 

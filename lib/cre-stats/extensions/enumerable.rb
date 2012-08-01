@@ -1,7 +1,7 @@
 #
 # All but #median adapted from https://gist.github.com/284694
 #
-# TODO Blocks that allow to call methods on i
+# TODO Call block instead of just using i
 # e.g. like this: http://stackoverflow.com/a/5785120
 module Enumerable
   def sum

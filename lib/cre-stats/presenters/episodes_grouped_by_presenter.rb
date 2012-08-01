@@ -20,6 +20,9 @@ module CRE
 
                 json.duration do |json|
                   overall = episodes_in_group.inject(0){|sum, e| sum + e.duration}.to_i
+                  # TODO
+                  # overall = episodes_in_group.sum{|episode| episode.duration}
+
                   json.overall overall
                   json.average overall / episodes_in_group.size
                   json.min -1
