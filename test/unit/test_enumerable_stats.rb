@@ -1,30 +1,39 @@
 require 'helper'
 
 class TestEnumerableStats < MiniTest::Unit::TestCase
-  def test_sum
-    assert_equal(15, (1..5).to_a.sum) # 1 + 2 + 3 + 4 + 5
-    assert_equal(1, [1].sum)
-    assert_equal(4, [2, 2].sum)
-    assert_equal(9.0, [2.0, 3.0, 4.0].sum)
+  def test_stats_example1
+    # test data example1 from http://web.cs.wpi.edu/~claypool/misc/stats/stats.txt
+    samples = [5.0, 10.0, 15.0]
+    assert_in_delta(10.0, samples.mean, 0.001)
+    assert_in_delta(25.0, samples.variance, 0.0001)
+    assert_in_delta(5.0, samples.standard_deviation, 0.00001)
+    assert_in_delta(30.0, samples.sum, 0.001)
+    assert_in_delta(5.0, samples.min, 0.001)
+    assert_in_delta(15.0, samples.max, 0.001)
   end
 
-  def test_average
-    assert_equal(5, (0..10).to_a.average)
-    assert_equal(1, [1].average)
-    assert_equal(2, [2, 2].average)
-    assert_equal(3.0, [2.0, 3.0, 4.0].average)
+  def test_stats_example2_f2
+    # test data example1 from http://web.cs.wpi.edu/~claypool/misc/stats/stats.txt
+    samples = [20.0, 40.0, 31.0]
+
+    assert_in_delta(30.333333333333, samples.mean, 0.001)
+    assert_in_delta(100.333333333333, samples.variance, 0.0001)
+    assert_in_delta(10.016652800878, samples.standard_deviation, 0.00001)
+    assert_in_delta(91.000000000000, samples.sum, 0.001)
+    assert_in_delta(20.000000000000, samples.min, 0.001)
+    assert_in_delta(40.000000000000, samples.max, 0.001)
   end
 
-  def test_variance
-    # s'² in https://de.wikipedia.org/wiki/Stichprobenvarianz
-    assert_in_delta(0.8353, [-0.8223, -0.2789, -0.2537, 1.1041,  1.5785].variance, 0.0001)
-  end
+  def test_stats_example2_f4
+    # test data example1 from http://web.cs.wpi.edu/~claypool/misc/stats/stats.txt
+    samples = [10.2, 19.3, 15.4]
 
-  def test_standard_deviation
-    samples = [114.3, 135.7, 104.8, 118.5, 125.7, 121.4, 122.4,  96.8, 118.9, 120  , 112.2, 127.9, 122.8, 128.9, 120.3]
-    assert_in_delta(119.373, samples.average, 0.001)
-    assert_in_delta(86.42862, samples.variance, 0.0001)
-    assert_in_delta(9.296699, samples.standard_deviation, 0.00001)
+    assert_in_delta(14.966666666667, samples.mean, 0.001)
+    assert_in_delta(20.843333333333, samples.variance, 0.0001)
+    assert_in_delta(4.565449959570, samples.standard_deviation, 0.00001)
+    assert_in_delta(44.900000000000, samples.sum, 0.001)
+    assert_in_delta(10.200000000000, samples.min, 0.001)
+    assert_in_delta(19.300000000000, samples.max, 0.001)
   end
 
   def test_median
