@@ -10,11 +10,11 @@
 #
 module Enumerable
   def sum
-    inject(0){|acc, i| acc + i}
+    inject(0){|acc, i| acc + (block_given? ? yield(i) : i)}
   end
 
-  def average
-    sum / count.to_f
+  def average(&block)
+    sum(&block) / count.to_f
   end
 
   alias :mean :average
@@ -26,19 +26,23 @@ module Enumerable
     sorted = to_a.sort
 
     if count.odd?
-      sorted[mid]
+      (block_given? ? yield(sorted[mid]) : sorted[mid])
     else
-      (sorted[mid - 1] + sorted[mid]).to_f / 2.0
+      if block_given?
+        (yield(sorted[mid - 1]) + yield(sorted[mid])).to_f / 2.0
+      else
+        (sorted[mid - 1] + sorted[mid]).to_f / 2.0
+      end
     end
   end
 
-  def variance
+  def variance(&block)
     return 0 if empty?
-    (sum_sq - ((sum ** 2) / count)) / (count - 1)
+    (sum_sq(&block) - ((sum(&block) ** 2) / count)) / (count - 1)
   end
 
-  def standard_deviation
-    var = variance
+  def standard_deviation(&block)
+    var = variance(&block)
 
     if (count > 1 && var != 0)
       Math.sqrt(var)
@@ -50,6 +54,6 @@ module Enumerable
   private
 
   def sum_sq
-    self.inject(0){|acc, i| acc + i ** 2}
+    self.inject(0){|acc, i| acc + (block_given? ? yield(i) : i) ** 2}
   end
 end
