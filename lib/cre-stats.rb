@@ -5,6 +5,7 @@ require 'active_support/inflector'
 require 'nokogiri'
 require 'open-uri'
 require 'jbuilder'
+require 'enumstats'
 
 require 'sinatra/base'
 
