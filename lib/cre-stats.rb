@@ -31,8 +31,6 @@ require 'cre-stats/presenters/guests_presenter'
 require 'cre-stats/presenters/comments_presenter'
 require 'cre-stats/presenters/episodes_grouped_by_presenter'
 
-require 'cre-stats/extensions/enumerable'
-
 require 'cre-stats/server/server'
 
 module CRE
