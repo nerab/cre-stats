@@ -1,6 +1,7 @@
 require 'uri'
 require 'active_model'
 require 'active_support/inflector'
+require 'active_support/core_ext'
 
 require 'nokogiri'
 require 'open-uri'
