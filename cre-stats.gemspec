@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency('activemodel', '~> 3.2')
   gem.add_runtime_dependency('jbuilder', '~> 0.4')
   gem.add_runtime_dependency('enumstats')
+  gem.add_runtime_dependency('hms')
 
   gem.add_runtime_dependency('sinatra')# , '~> 0.4'
 

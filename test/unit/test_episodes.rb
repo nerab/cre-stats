@@ -14,7 +14,7 @@ class TestEpisodes < MiniTest::Unit::TestCase
   end
 
   def test_mean
-    assert_in_delta(Duration.new('1:43:00'), @episodes.mean{|e| e.duration}, 60) # minute precision
+    assert_in_delta(HMS::Duration.new('1:43:00'), @episodes.mean{|e| e.duration}, 60) # minute precision
     assert_in_delta(1.1, @episodes.mean{|e| e.guests.count}, 0.1)
   end
 end

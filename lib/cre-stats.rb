@@ -6,12 +6,12 @@ require 'nokogiri'
 require 'open-uri'
 require 'jbuilder'
 require 'enumstats'
+require 'hms'
 
 require 'sinatra/base'
 
 require 'cre-stats/version'
 require 'cre-stats/errors'
-require 'cre-stats/duration'
 
 require 'cre-stats/resource_registry'
 require 'cre-stats/resource'
