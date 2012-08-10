@@ -10,8 +10,11 @@ class TestServer < MiniTest::Unit::TestCase
     CRE::Stats::Server
   end
 
-  def test_my_default
-    assert_equal(194, get_json('/')[:resources][:episodes][:count])
+  def test_root
+    response = get_json('/')
+    assert_equal(194, response[:resources][:episodes][:count])
+  #  assert_equal(194, response[:resources][:episodes][:duration][:sum])
+  #  assert_equal(194, response[:resources][:episodes][:duration][:average])
   end
 
   def test_with_params
@@ -19,10 +22,16 @@ class TestServer < MiniTest::Unit::TestCase
     assert_equal(id, get_json("/episode/#{id}")[:id])
   end
 
+  def test_group_by_year
+    response = get_json('/episodes/by-year')
+    assert_equal(194, response[:resources][:episodes][:count])
+  end
+
   private
 
   def get_json(uri, params = {}, env = {}, &block)
     mocked('setup'){get(uri, params, env, &block)}
-    MultiJson.load(last_response.body, :symbolize_keys => true)
+    json = last_response.body
+    MultiJson.load(json, :symbolize_keys => true)
   end
 end

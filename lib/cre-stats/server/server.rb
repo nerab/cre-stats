@@ -8,6 +8,7 @@ module CRE
 
       before do
         @resources = ResourceRegistry.new(Fetcher.new)
+        content_type(:json)
       end
 
       get '/' do

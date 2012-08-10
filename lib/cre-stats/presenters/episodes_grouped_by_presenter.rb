@@ -19,15 +19,9 @@ module CRE
                 json.count episodes_in_group.size
 
                 json.duration do |json|
-                  overall = episodes_in_group.inject(0){|sum, e| sum + e.duration}.to_i
-                  # TODO
-                  # overall = episodes_in_group.sum{|episode| episode.duration}
-
-                  json.overall overall
-                  json.average overall / episodes_in_group.size
-                  json.min -1
-                  json.max -1
-                  json.mean -1
+                  # TODO Move this to StatsPresenter that can be re-used for all arrays
+                  durations = episodes_in_group.map{|e| e.duration}
+                  StatsPresenter.to_json(json, durations)
                 end
               end
             end
