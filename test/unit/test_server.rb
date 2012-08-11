@@ -24,7 +24,7 @@ class TestServer < MiniTest::Unit::TestCase
 
   def test_group_by_year
     response = get_json('/episodes/by-year')
-    assert_equal(194, response[:resources][:episodes][:count])
+    assert_equal(194, response)#[:resources][:episodes][:count])
   end
 
   private
