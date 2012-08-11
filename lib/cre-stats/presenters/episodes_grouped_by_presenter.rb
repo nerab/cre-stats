@@ -4,17 +4,19 @@ module CRE
       class EpisodesGroupedByPresenter
         class << self
           def to_json(json, groups, period, include_children = false)
-            # TODO JSON name of the period must account for the canonical period:
-            # year
-            # year-quarter
-            # year-month
-            # year-week
-            json.set!("by-#{period}") do |json|
-              #json.groups(episodes) do |json, groups|
-              groups.each do |label, episodes|
-                json.set!(label) do |json|
-                  json.count episodes.size
-                  StatsPresenter.to_json(json, episodes.map{|e| e.duration}, 'duration_stats')
+            # TODO Move to common class with EpisodesPresenter
+            json.episodes do |json|
+              json.urltemplate "/episode/{id}"
+              json.label do |json|
+                json.en "Episode"
+                json.de "Folge"
+              end
+
+              json.set!("by_#{period}") do |json|
+                groups.each do |label, episodes|
+                  json.set!(label) do |json|
+                    EpisodesPresenter.to_json(json, episodes, false)
+                  end
                 end
               end
             end

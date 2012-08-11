@@ -22,8 +22,11 @@ module CRE
                 json.episodes(episodes) do |json, episode|
                   EpisodePresenter.to_json(json, episode)
                 end if include_children
-              end
 
+                json.set!('duration_stats') do |json|
+                  StatsPresenter.to_json(json, episodes.map{|e| e.duration})
+                end
+              end
             end
           end
         end

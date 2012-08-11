@@ -15,6 +15,6 @@ class TestEpisodesGroupedByPresenter < MiniTest::Unit::TestCase
     end
 
     parsed = MultiJson.load(presented, :symbolize_keys => false)
-    assert_equal(13, parsed['by-year']['2005']['count'])
+    assert_equal(13, parsed['episodes']['by_year']['2005']['episodes']['count'])
   end
 end

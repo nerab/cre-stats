@@ -18,10 +18,10 @@ module CRE
       end
 
       # /episodes/by-year etc.
-      get '/episodes/by-:period' do
+      get '/:resources/by-:period' do
         Jbuilder.encode do |json|
-          grouped = @resources[:episodes].group_by{|e| e.released_at.send(params[:period])}
-          Presenters.find(:episodes_grouped_by).to_json(json, grouped, params[:period], true)
+          grouped = @resources[params[:resources]].group_by{|e| e.released_at.send(params[:period])}
+          Presenters.find("#{params[:resources]}_grouped_by").to_json(json, grouped, params[:period], true)
         end
       end
 
@@ -34,7 +34,7 @@ module CRE
       # /guests
       get '/:resources' do
         Jbuilder.encode do |json|
-          Presenters.find(params[:resources]).to_json(json, @resources[params[:resource]], true)
+          Presenters.find(params[:resources]).to_json(json, @resources[params[:resources]], true)
         end
       end
 

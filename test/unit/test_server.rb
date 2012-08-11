@@ -17,6 +17,11 @@ class TestServer < MiniTest::Unit::TestCase
   #  assert_equal(194, response[:resources][:episodes][:duration][:average])
   end
 
+  def test_episodes
+    response = get_json('/episodes')
+    assert_equal(194, response[:episodes][:count])
+  end
+
   def test_with_params
     id = 'cre194'
     assert_equal(id, get_json("/episode/#{id}")[:id])
@@ -24,7 +29,7 @@ class TestServer < MiniTest::Unit::TestCase
 
   def test_group_by_year
     response = get_json('/episodes/by-year')
-    assert_equal(194, response)#[:resources][:episodes][:count])
+    assert_equal(13, response[:episodes][:by_year][:'2005'][:episodes][:count])
   end
 
   private

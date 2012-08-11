@@ -12,6 +12,6 @@ class TestStatsPresenters < MiniTest::Unit::TestCase
 
     parsed = MultiJson.load(presented, :symbolize_keys => true)
 
-    assert_equal(10.0, Duration.new(parsed[:stats][:mean]))
+    assert_equal(10.0, Duration.new(parsed[:mean]))
   end
 end
