@@ -1,3 +1,6 @@
+require 'vcr'
+require 'rack/test'
+
 #
 # Test with +bundle exec shotgun+
 #
@@ -6,8 +9,22 @@ module CRE
     class Server < Sinatra::Base
       include CRE::Stats
 
+      configure :development, :test do
+        VCR.configure do |c|
+          c.cassette_library_dir = 'test/fixtures/vcr_cassettes'
+          c.hook_into :webmock
+        end
+      end
+
       before do
-        @resources = ResourceRegistry.new(Fetcher.new)
+        if ENV['RACK_ENV'] == :production
+          @resources = ResourceRegistry.new(Fetcher.new)
+        else
+          @resources = VCR.use_cassette(self.class.name, :record => :new_episodes) do
+            ResourceRegistry.new(Fetcher.new)
+          end
+        end
+
         content_type(:json)
       end
 
