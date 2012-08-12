@@ -36,8 +36,9 @@ module CRE
 
       # /episodes/by-year etc.
       get '/:resources/by-:period' do
+        grouping = Grouping.get(params[:period])
         Jbuilder.encode do |json|
-          grouped = @resources[params[:resources]].group_by{|e| e.released_at.send(params[:period])}
+          grouped = @resources[params[:resources]].group_by{|e| grouping.apply(e.released_at)}
           Presenters.find("#{params[:resources]}_grouped_by").to_json(json, grouped, params[:period], true)
         end
       end

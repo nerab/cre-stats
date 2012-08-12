@@ -32,6 +32,11 @@ class TestServer < MiniTest::Unit::TestCase
     assert_equal(13, response[:episodes][:by_year][:'2005'][:episodes][:count])
   end
 
+  def test_group_by_month
+    response = get_json('/episodes/by-month')
+    assert_equal(1, response[:episodes][:by_month][:'2008-05'][:episodes][:count])
+  end
+
   private
 
   def get_json(uri, params = {}, env = {}, &block)
